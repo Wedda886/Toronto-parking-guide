@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cn-tower-blue: #003399;
+  --safety-yellow: #FFCC00;
+  --background: #f0f4f8;
+  --foreground: #0a1628;
+  --card-bg: #ffffff;
+  --muted: #64748b;
+}
+
+.dark {
+  --background: #0a0f1a;
+  --foreground: #f1f5f9;
+  --card-bg: rgba(15, 23, 42, 0.8);
+  --muted: #94a3b8;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* City-Tech accent gradients */
+.city-tech-gradient {
+  background: linear-gradient(135deg, rgba(0, 51, 153, 0.08) 0%, transparent 50%, rgba(255, 204, 0, 0.06) 100%);
+}
+
+.dark .city-tech-gradient {
+  background: linear-gradient(135deg, rgba(0, 51, 153, 0.15) 0%, transparent 50%, rgba(255, 204, 0, 0.05) 100%);
+}

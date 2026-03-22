@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canada Tip & Tax Calculator | Health Burn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-50: #f0fdf4;
+      --green-100: #dcfce7;
+      --green-200: #bbf7d0;
+      --green-300: #86efac;
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --green-800: #166534;
+      --green-900: #14532d;
+      --sage: #87a96b;
+      --mint: #a8d5ba;
+      --cream: #f7faf7;
+      --shadow: 0 4px 24px rgba(34, 197, 94, 0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--green-50) 50%, var(--green-100) 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: var(--green-900);
+    }
+
+    .container {
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green-800);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--green-600);
+      font-weight: 500;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(34, 197, 94, 0.08);
+    }
+
+    .card h2 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--green-600);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--green-800);
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 1.1rem;
+      font-family: inherit;
+      border: 2px solid var(--green-200);
+      border-radius: var(--radius-sm);
+      background: var(--green-50);
+      color: var(--green-900);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--green-500);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    input[type="number"]::placeholder {
+      color: var(--green-400);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .result-box {
+      background: linear-gradient(135deg, var(--green-500) 0%, var(--green-600) 100%);
+      color: white;
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+
+    .result-box .label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-box .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .breakdown {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--green-200);
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+    }
+
+    .breakdown-item .amount {
+      font-weight: 600;
+      color: var(--green-700);
+    }
+
+    .health-burn-card {
+      background: linear-gradient(135deg, var(--mint) 0%, var(--sage) 100%);
+      border: none;
+      color: var(--green-900);
+    }
+
+    .health-burn-card h2 {
+      color: var(--green-800);
+    }
+
+    .health-burn-card input {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .walk-result {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--green-800);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .walk-result .minutes {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green-700);
+    }
+
+    .walk-result .hint {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .disclaimer {
+      max-width: 440px;
+      margin: 2rem auto 0;
+      padding: 0 1rem;
+      font-size: 0.65rem;
+      color: #999;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🇨🇦 Tip & Tax Calculator</h1>
+      <p class="subtitle">Ontario · HST · Health Burn</p>
+    </header>
+
+    <div class="card">
+      <h2>Bill & Tax</h2>
+      <div class="form-group">
+        <label for="bill">Bill amount ($ CAD)</label>
+        <input type="number" id="bill" placeholder="0.00" min="0" step="0.01">
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="tax">Tax / HST (%)</label>
+          <input type="number" id="tax" value="13" min="0" max="20" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="tip">Tip (%)</label>
+          <input type="number" id="tip" value="15" min="0" max="50" step="0.5">
+        </div>
+      </div>
+      <div class="result-box">
+        <div class="label">Total to pay</div>
+        <div class="value" id="totalDisplay">$0.00</div>
+        <div class="breakdown">
+          <div class="breakdown-item">
+            <span>Subtotal</span>
+            <span class="amount" id="subtotalDisplay">$0.00</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Tax</span>
+            <span class="amount" id="taxDisplay">$0.00</span>
+          </div>
+          <div class="breakdown-item">
+            <span>Tip</span>
+            <span class="amount" id="tipDisplay">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card health-burn-card">
+      <h2>🔥 Health Burn</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.95;">How many minutes of walking to burn off your meal?</p>
+      <div class="form-group">
+        <label for="calories">Total calories</label>
+        <input type="number" id="calories" placeholder="e.g. 650" min="0" step="10">
+      </div>
+      <div id="walkResult" class="walk-result hidden">
+        <div class="minutes" id="minutesDisplay">0</div>
+        <div class="label">minutes of walking</div>
+        <div class="hint">(~3.5 cal/min at moderate pace)</div>
+      </div>
+    </div>
+
+    <footer class="disclaimer">
+      Disclaimer: This tool is for informational purposes only and does not constitute professional health or financial advice. Please consult with a qualified professional before making any decisions based on these results.
+    </footer>
+  </div>
+
+  <script>
+    const billInput = document.getElementById('bill');
+    const taxInput = document.getElementById('tax');
+    const tipInput = document.getElementById('tip');
+    const caloriesInput = document.getElementById('calories');
+    const totalDisplay = document.getElementById('totalDisplay');
+    const subtotalDisplay = document.getElementById('subtotalDisplay');
+    const taxDisplay = document.getElementById('taxDisplay');
+    const tipDisplay = document.getElementById('tipDisplay');
+    const walkResult = document.getElementById('walkResult');
+    const minutesDisplay = document.getElementById('minutesDisplay');
+
+    const CALORIES_PER_MINUTE = 3.5; // Moderate walking for average adult
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(value);
+    }
+
+    function calculate() {
+      const bill = parseFloat(billInput.value) || 0;
+      const taxRate = parseFloat(taxInput.value) || 0;
+      const tipRate = parseFloat(tipInput.value) || 0;
+
+      const taxAmount = bill * (taxRate / 100);
+      const tipAmount = bill * (tipRate / 100);
+      const total = bill + taxAmount + tipAmount;
+
+      subtotalDisplay.textContent = formatCurrency(bill);
+      taxDisplay.textContent = formatCurrency(taxAmount);
+      tipDisplay.textContent = formatCurrency(tipAmount);
+      totalDisplay.textContent = formatCurrency(total);
+    }
+
+    function calculateBurn() {
+      const calories = parseFloat(caloriesInput.value) || 0;
+      if (calories <= 0) {
+        walkResult.classList.add('hidden');
+        return;
+      }
+      const minutes = Math.ceil(calories / CALORIES_PER_MINUTE);
+      minutesDisplay.textContent = minutes;
+      walkResult.classList.remove('hidden');
+    }
+
+    billInput.addEventListener('input', calculate);
+    taxInput.addEventListener('input', calculate);
+    tipInput.addEventListener('input', calculate);
+    caloriesInput.addEventListener('input', calculateBurn);
+
+    calculate();
+  </script>
+</body>
+</html>
