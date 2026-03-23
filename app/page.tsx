@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components/HeroSection";
-import { ComparisonGrid } from "@/components/ComparisonGrid";
-import { MapSection } from "@/components/MapSection";
-import { ProTipBox } from "@/components/ProTipBox";
+import { HeroSection } from "../components/HeroSection";
+import { ComparisonGrid } from "../components/ComparisonGrid";
+import { MapSection } from "../components/MapSection";
+import { ProTipBox } from "../components/ProTipBox";
 
 export default function Home() {
   return (
